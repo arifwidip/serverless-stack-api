@@ -56,3 +56,9 @@ functions:
       - http:
           path: notes
           method: get
+  update:
+    handler: update.main
+    events:
+      - https:
+          path: notes/{id}
+          method: put
