@@ -1,12 +1,9 @@
 import * as uuid from 'uuid';
-import AWS from 'aws-sdk';
+import handler from './libs/handle-lib';
+import dynamoDb from './libs/dynamodb-lib';
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
-
-export async function main(event, context) {
-  // Request body is passed in as a JSON encoded string in 'event.body'
+export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
-
   const params = {
     TableName: process.env.tableName,
     Item: {
@@ -20,5 +17,5 @@ export async function main(event, context) {
 
   await dynamoDb.put(params);
 
-  return params.Item
-}
+  return params.Item;
+});
